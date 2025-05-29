@@ -148,3 +148,37 @@ if st.button("🚀 Gerar Projeto"):
         """)
 
         st.success("🚀 Projeto gerado com sucesso!")
+
+# 📊 Painel de Acompanhamento de Projetos
+st.header("📊 Painel de Acompanhamento de Projetos")
+
+# Dados simulados para teste (substituir depois por banco de dados real)
+dados_projetos = [
+    {
+        "Projeto": "Apoio à Saúde Municipal",
+        "Status": "Em Execução",
+        "Valor (R$)": 500000,
+        "Data Limite": "30/06/2025"
+    },
+    {
+        "Projeto": "Reforma de Escolas Municipais",
+        "Status": "Aprovado",
+        "Valor (R$)": 1200000,
+        "Data Limite": "15/07/2025"
+    },
+    {
+        "Projeto": "Fomento à Cultura Local",
+        "Status": "Prestação de Contas",
+        "Valor (R$)": 350000,
+        "Data Limite": "05/08/2025"
+    }
+]
+
+import pandas as pd
+
+df_painel = pd.DataFrame(dados_projetos)
+
+st.subheader("📋 Status dos Projetos")
+st.dataframe(df_painel, use_container_width=True)
+
+st.info("🚦 Acompanhe os projetos e seus respectivos status.")
