@@ -1,7 +1,10 @@
 import streamlit as st
+import pandas as pd
 
+# Configuração da página
 st.set_page_config(page_title="Gestor Público - Terceiro Setor", layout="wide")
 
+# Título e descrição inicial
 st.title("🚀 Gestor Público do Terceiro Setor")
 st.subheader("Ferramenta colaborativa para gestão eficiente de projetos sociais")
 
@@ -26,18 +29,14 @@ Bem-vindo(a) ao nosso aplicativo! Aqui você pode:
 
 🛠️ Este é o primeiro protótipo. Em breve, mais funcionalidades!
 """)
-import streamlit as st
-import pandas as pd
 
-# Título da Página
-st.set_page_config(page_title="Gestor Público - Terceiro Setor", layout="wide")
-st.title("📑 Scanner de Oportunidades - Editais Públicos")
-
+# 🔎 Scanner de Oportunidades - Editais Públicos
+st.header("📑 Scanner de Oportunidades - Editais Públicos")
 st.write("Busque oportunidades de transferência voluntária da União e outros órgãos públicos.")
 
 # Botão para buscar editais
 if st.button("🔍 Buscar Editais Disponíveis"):
-    # Dados simulados (iremos trocar por dados reais depois)
+    # Dados simulados (iremos substituir por dados reais depois)
     dados_editais = [
         {
             "Órgão": "Ministério da Saúde",
