@@ -26,3 +26,49 @@ Bem-vindo(a) ao nosso aplicativo! Aqui você pode:
 
 🛠️ Este é o primeiro protótipo. Em breve, mais funcionalidades!
 """)
+import streamlit as st
+import pandas as pd
+
+# Título da Página
+st.set_page_config(page_title="Gestor Público - Terceiro Setor", layout="wide")
+st.title("📑 Scanner de Oportunidades - Editais Públicos")
+
+st.write("Busque oportunidades de transferência voluntária da União e outros órgãos públicos.")
+
+# Botão para buscar editais
+if st.button("🔍 Buscar Editais Disponíveis"):
+    # Dados simulados (iremos trocar por dados reais depois)
+    dados_editais = [
+        {
+            "Órgão": "Ministério da Saúde",
+            "Título": "Apoio a Ações na Atenção Básica",
+            "Valor": "R$ 500.000,00",
+            "Data Limite": "30/06/2025",
+            "Link": "https://www.transferegov.gov.br"
+        },
+        {
+            "Órgão": "FNDE",
+            "Título": "Reforma de Escolas Municipais",
+            "Valor": "R$ 1.200.000,00",
+            "Data Limite": "15/07/2025",
+            "Link": "https://www.fnde.gov.br"
+        },
+        {
+            "Órgão": "Ministério da Cultura",
+            "Título": "Fomento à Cultura em Pequenos Municípios",
+            "Valor": "R$ 350.000,00",
+            "Data Limite": "05/08/2025",
+            "Link": "https://www.transferegov.gov.br"
+        },
+    ]
+
+    df = pd.DataFrame(dados_editais)
+
+    # Mostrar a tabela
+    st.subheader("📋 Editais Encontrados")
+    st.dataframe(df, use_container_width=True)
+
+    st.success("Busca concluída! ✅")
+
+else:
+    st.info("Clique no botão acima para buscar editais disponíveis.")
