@@ -100,3 +100,52 @@ if st.button("🚦 Verificar Elegibilidade"):
         else:
             st.success("✅ Tudo certo! A entidade está apta para receber recursos públicos.")
 
+# 📝 Geração de Projeto Simplificado
+st.header("📑 Geração Automática de Projeto")
+
+nome_projeto = st.text_input("Título do Projeto")
+area_atuacao = st.selectbox("Área de Atuação", ["Educação", "Saúde", "Assistência Social", "Cultura", "Esporte", "Outros"])
+valor_projeto = st.number_input("Valor Total do Projeto (R$)", min_value=1000.0, step=1000.0)
+
+if st.button("🚀 Gerar Projeto"):
+    if nome_projeto.strip() == "":
+        st.warning("Por favor, preencha o título do projeto.")
+    else:
+        st.subheader(f"📄 Projeto: {nome_projeto}")
+
+        st.markdown(f"""
+        ### 🩺 Diagnóstico
+        Há uma necessidade significativa na área de **{area_atuacao}**, onde a comunidade local enfrenta desafios constantes que comprometem sua qualidade de vida. Este projeto busca mitigar tais dificuldades através de ações estruturadas.
+
+        ### 📜 Justificativa
+        A implementação deste projeto visa promover melhorias na área de **{area_atuacao}**, atendendo diretamente a população e fortalecendo as políticas públicas locais. Considera-se também os Objetivos de Desenvolvimento Sustentável (ODS) alinhados às diretrizes governamentais.
+
+        ### 🎯 Objetivos
+        - Promover ações voltadas para melhoria da **{area_atuacao}**.
+        - Fortalecer a atuação do terceiro setor na região.
+        - Contribuir com o desenvolvimento social e econômico.
+
+        ### 🗂️ Plano de Trabalho
+        - **Meta 1:** Início das atividades de mobilização comunitária.
+        - **Meta 2:** Execução das atividades técnicas e operacionais.
+        - **Meta 3:** Acompanhamento e avaliação de resultados.
+
+        ### 📅 Cronograma
+        - **Mês 1:** Planejamento e mobilização.
+        - **Mês 2-5:** Execução das ações.
+        - **Mês 6:** Avaliação e prestação de contas.
+
+        ### 💰 Orçamento Total
+        **R$ {valor_projeto:,.2f}**
+
+        ### 🏛️ Termo de Referência (Simplificado)
+        - Objeto: Execução do projeto "{nome_projeto}" na área de **{area_atuacao}**.
+        - Justificativa: Atender demandas da comunidade, conforme diagnóstico.
+        - Valor estimado: R$ {valor_projeto:,.2f}.
+        - Vigência: 6 meses.
+
+        ---
+        ✅ Documento gerado automaticamente. Personalize conforme necessidade.
+        """)
+
+        st.success("🚀 Projeto gerado com sucesso!")
