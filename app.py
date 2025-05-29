@@ -71,3 +71,32 @@ if st.button("🔍 Buscar Editais Disponíveis"):
 
 else:
     st.info("Clique no botão acima para buscar editais disponíveis.")
+
+# 🔍 Análise de Elegibilidade
+st.header("🧠 Análise de Elegibilidade da Entidade")
+
+cnpj = st.text_input("Informe o CNPJ da entidade (somente números)")
+
+if st.button("🚦 Verificar Elegibilidade"):
+    if cnpj.strip() == "":
+        st.warning("Por favor, informe um CNPJ válido.")
+    else:
+        # 🔗 Simulação de checagem (iremos integrar APIs depois)
+        st.subheader("🔍 Resultado da Análise:")
+
+        resultado = {
+            "CNPJ Ativo na Receita Federal": "✅ Regular",
+            "Situação no CAUC": "❌ Irregular - Pendências Financeiras",
+            "Certidão Negativa Federal": "✅ Regular",
+            "Certidão Estadual": "✅ Regular",
+            "Observações": "⚠️ Resolver pendências no CAUC para avançar com projetos públicos."
+        }
+
+        resultado_df = pd.DataFrame(list(resultado.items()), columns=["Item", "Status"])
+        st.table(resultado_df)
+
+        if "❌" in "".join(resultado.values()):
+            st.error("⚠️ A entidade possui pendências. Recomenda-se resolver antes de submeter projetos.")
+        else:
+            st.success("✅ Tudo certo! A entidade está apta para receber recursos públicos.")
+
