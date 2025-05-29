@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
+import datetime
 
 # Configuração da página
 st.set_page_config(page_title="Gestor Público - Terceiro Setor", layout="wide")
 
-# 🚀 Título e descrição inicial
+# ----------------------------
+# 🚀 Cabeçalho Principal
+# ----------------------------
 st.title("🚀 Gestor Público do Terceiro Setor")
 st.subheader("Ferramenta colaborativa para gestão eficiente de projetos sociais")
 
@@ -18,19 +21,20 @@ Bem-vindo(a) ao nosso aplicativo! Aqui você pode:
 
 ---
 
-### 🔧 Funcionalidades principais (em desenvolvimento):
+### 🔧 Funcionalidades principais:
 
-- Gestão de cadastros de projetos
-- Controle de voluntários
-- Relatórios financeiros
-- Painéis interativos
+1️⃣ Scanner de Editais Públicos  
+2️⃣ Análise de Elegibilidade  
+3️⃣ Geração de Projeto Simplificado  
+4️⃣ Painel de Acompanhamento de Projetos  
+5️⃣ Upload e Gestão de Documentos da Entidade  
 
 ---
-
-🛠️ Este é o primeiro protótipo. Em breve, mais funcionalidades!
 """)
 
-# 🔍 Scanner de Oportunidades - Editais Públicos
+# ----------------------------
+# 🔎 Scanner de Oportunidades
+# ----------------------------
 st.header("📑 Scanner de Oportunidades - Editais Públicos")
 st.write("Busque oportunidades de transferência voluntária da União e outros órgãos públicos.")
 
@@ -60,15 +64,17 @@ if st.button("🔍 Buscar Editais Disponíveis"):
     ]
 
     df = pd.DataFrame(dados_editais)
-
     st.subheader("📋 Editais Encontrados")
     st.dataframe(df, use_container_width=True)
-
     st.success("Busca concluída! ✅")
 else:
     st.info("Clique no botão acima para buscar editais disponíveis.")
 
+st.divider()
+
+# ----------------------------
 # 🧠 Análise de Elegibilidade
+# ----------------------------
 st.header("🧠 Análise de Elegibilidade da Entidade")
 
 cnpj = st.text_input("Informe o CNPJ da entidade (somente números)")
@@ -95,14 +101,15 @@ if st.button("🚦 Verificar Elegibilidade"):
         else:
             st.success("✅ Tudo certo! A entidade está apta para receber recursos públicos.")
 
-# 📝 Geração de Projeto Simplificado
+st.divider()
+
+# ----------------------------
+# 📝 Geração de Projeto
+# ----------------------------
 st.header("📑 Geração Automática de Projeto")
 
 nome_projeto = st.text_input("Título do Projeto")
-area_atuacao = st.selectbox(
-    "Área de Atuação",
-    ["Educação", "Saúde", "Assistência Social", "Cultura", "Esporte", "Outros"]
-)
+area_atuacao = st.selectbox("Área de Atuação", ["Educação", "Saúde", "Assistência Social", "Cultura", "Esporte", "Outros"])
 valor_projeto = st.number_input("Valor Total do Projeto (R$)", min_value=1000.0, step=1000.0)
 
 if st.button("🚀 Gerar Projeto"):
@@ -148,7 +155,11 @@ if st.button("🚀 Gerar Projeto"):
 
         st.success("🚀 Projeto gerado com sucesso!")
 
-# 📊 Painel de Acompanhamento de Projetos
+st.divider()
+
+# ----------------------------
+# 📊 Painel de Acompanhamento
+# ----------------------------
 st.header("📊 Painel de Acompanhamento de Projetos")
 
 dados_projetos = [
@@ -178,3 +189,67 @@ st.subheader("📋 Status dos Projetos")
 st.dataframe(df_painel, use_container_width=True)
 
 st.info("🚦 Acompanhe os projetos e seus respectivos status.")
+
+st.divider()
+
+# ----------------------------
+# 📂 Gestão de Documentos
+# ----------------------------
+st.header("📂 Gestão de Documentos da Entidade")
+st.subheader("Organize e envie documentos essenciais para habilitação da entidade.")
+
+st.markdown("""
+Envie aqui documentos importantes da sua organização, como:
+
+- 🏛️ Estatuto Social
+- 📝 Ata de Constituição
+- ✅ Certidões Negativas
+- 📄 Declarações
+- 📑 Outros documentos obrigatórios
+""")
+
+if 'arquivos' not in st.session_state:
+    st.session_state['arquivos'] = []
+
+st.subheader("⬆️ Envio de Documentos")
+arquivo = st.file_uploader("Selecione um arquivo", type=['pdf', 'jpg', 'png', 'docx'])
+descricao = st.text_input("Descrição do documento (ex.: Estatuto Social, Certidão, etc.)")
+
+if st.button("📤 Enviar Documento"):
+    if arquivo is not None and descricao.strip() != "":
+        st.session_state['arquivos'].append({
+            "Nome": arquivo.name,
+            "Descrição": descricao,
+            "Data Upload": datetime.datetime.now().strftime('%d/%m/%Y %H:%M'),
+            "Arquivo": arquivo
+        })
+        st.success(f"✅ Documento '{arquivo.name}' enviado com sucesso!")
+    else:
+        st.warning("Por favor, selecione um arquivo e preencha a descrição.")
+
+st.subheader("📜 Documentos Enviados")
+
+if len(st.session_state['arquivos']) > 0:
+    df_arquivos = pd.DataFrame([{
+        "Nome": item['Nome'],
+        "Descrição": item['Descrição'],
+        "Data Upload": item['Data Upload']
+    } for item in st.session_state['arquivos']])
+
+    st.dataframe(df_arquivos, use_container_width=True)
+
+    for idx, item in enumerate(st.session_state['arquivos']):
+        with st.expander(f"📄 {item['Nome']}"):
+            st.write(f"**Descrição:** {item['Descrição']}")
+            st.write(f"**Enviado em:** {item['Data Upload']}")
+            st.download_button(
+                label="⬇️ Baixar Arquivo",
+                data=item['Arquivo'].getvalue(),
+                file_name=item['Nome']
+            )
+            if st.button(f"🗑️ Remover '{item['Nome']}'", key=f"remove_{idx}"):
+                st.session_state['arquivos'].pop(idx)
+                st.success(f"Documento '{item['Nome']}' removido.")
+                st.experimental_rerun()
+else:
+    st.info("Nenhum documento enviado até o momento.")
