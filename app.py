@@ -99,7 +99,6 @@ if st.button("🚦 Verificar Elegibilidade"):
             st.error("⚠️ A entidade possui pendências. Recomenda-se resolver antes de submeter projetos.")
         else:
             st.success("✅ Tudo certo! A entidade está apta para receber recursos públicos.")
-
 # 📝 Geração de Projeto Simplificado
 st.header("📑 Geração Automática de Projeto")
 
