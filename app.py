@@ -4,7 +4,7 @@ import pandas as pd
 # Configuração da página
 st.set_page_config(page_title="Gestor Público - Terceiro Setor", layout="wide")
 
-# Título e descrição inicial
+# 🚀 Título e descrição inicial
 st.title("🚀 Gestor Público do Terceiro Setor")
 st.subheader("Ferramenta colaborativa para gestão eficiente de projetos sociais")
 
@@ -30,13 +30,11 @@ Bem-vindo(a) ao nosso aplicativo! Aqui você pode:
 🛠️ Este é o primeiro protótipo. Em breve, mais funcionalidades!
 """)
 
-# 🔎 Scanner de Oportunidades - Editais Públicos
+# 🔍 Scanner de Oportunidades - Editais Públicos
 st.header("📑 Scanner de Oportunidades - Editais Públicos")
 st.write("Busque oportunidades de transferência voluntária da União e outros órgãos públicos.")
 
-# Botão para buscar editais
 if st.button("🔍 Buscar Editais Disponíveis"):
-    # Dados simulados (iremos substituir por dados reais depois)
     dados_editais = [
         {
             "Órgão": "Ministério da Saúde",
@@ -63,16 +61,14 @@ if st.button("🔍 Buscar Editais Disponíveis"):
 
     df = pd.DataFrame(dados_editais)
 
-    # Mostrar a tabela
     st.subheader("📋 Editais Encontrados")
     st.dataframe(df, use_container_width=True)
 
     st.success("Busca concluída! ✅")
-
 else:
     st.info("Clique no botão acima para buscar editais disponíveis.")
 
-# 🔍 Análise de Elegibilidade
+# 🧠 Análise de Elegibilidade
 st.header("🧠 Análise de Elegibilidade da Entidade")
 
 cnpj = st.text_input("Informe o CNPJ da entidade (somente números)")
@@ -81,7 +77,6 @@ if st.button("🚦 Verificar Elegibilidade"):
     if cnpj.strip() == "":
         st.warning("Por favor, informe um CNPJ válido.")
     else:
-        # 🔗 Simulação de checagem (iremos integrar APIs depois)
         st.subheader("🔍 Resultado da Análise:")
 
         resultado = {
@@ -99,11 +94,15 @@ if st.button("🚦 Verificar Elegibilidade"):
             st.error("⚠️ A entidade possui pendências. Recomenda-se resolver antes de submeter projetos.")
         else:
             st.success("✅ Tudo certo! A entidade está apta para receber recursos públicos.")
+
 # 📝 Geração de Projeto Simplificado
 st.header("📑 Geração Automática de Projeto")
 
 nome_projeto = st.text_input("Título do Projeto")
-area_atuacao = st.selectbox("Área de Atuação", ["Educação", "Saúde", "Assistência Social", "Cultura", "Esporte", "Outros"])
+area_atuacao = st.selectbox(
+    "Área de Atuação",
+    ["Educação", "Saúde", "Assistência Social", "Cultura", "Esporte", "Outros"]
+)
 valor_projeto = st.number_input("Valor Total do Projeto (R$)", min_value=1000.0, step=1000.0)
 
 if st.button("🚀 Gerar Projeto"):
@@ -152,7 +151,6 @@ if st.button("🚀 Gerar Projeto"):
 # 📊 Painel de Acompanhamento de Projetos
 st.header("📊 Painel de Acompanhamento de Projetos")
 
-# Dados simulados para teste (substituir depois por banco de dados real)
 dados_projetos = [
     {
         "Projeto": "Apoio à Saúde Municipal",
@@ -173,8 +171,6 @@ dados_projetos = [
         "Data Limite": "05/08/2025"
     }
 ]
-
-import pandas as pd
 
 df_painel = pd.DataFrame(dados_projetos)
 
