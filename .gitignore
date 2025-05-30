@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.pyo
+*.pyd
+*.pdb
+*.db
+*.sqlite3
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Ambientes virtuais
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Dados sensíveis ou de uso local
+*.pem
+*.key
+*.crt
+
+# Backup e temporários
+*.bak
+*.tmp
+*.swp
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
